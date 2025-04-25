@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Absyn.fs" />
+
+    <FsYacc Include="FunPar.fsy">
+      <OtherFlags>-v --module FunPar</OtherFlags>
+    </FsYacc>
+    <Compile Include="FunPar.fs" />
+
+    <FsLex Include="FunLex.fsl">
+      <OtherFlags>--unicode</OtherFlags>
+    </FsLex>
+    <Compile Include="FunLex.fs" />
+
+    <Compile Include="Parse.fs" />
+    <Compile Include = "Fun.fs" />
+    <Compile Include="ParseAndRun.fs" />
+    <Compile Include ="Program.fs" />
+    
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Suave" Version="2.6.2" />
+    <PackageReference Include="FsLexYacc" Version="11.3.0" />
+  </ItemGroup>
+
+</Project>
