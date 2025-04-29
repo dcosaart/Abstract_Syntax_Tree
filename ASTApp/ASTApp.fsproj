@@ -16,15 +16,35 @@
     <FsLex Include="FunLex.fsl">
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
+
+
+    
     <Compile Include="FunLex.fs" />
 
     <Compile Include="Parse.fs" />
     <Compile Include = "Fun.fs" />
     <Compile Include="ParseAndRun.fs" />
+    <Compile Include = "HigherFun.fs" />
+    <Compile Include = "ParseAndRunHigher.fs" />
+    <Compile Include = "TypeInference.fs" />
+    <Compile Include = "ParseAndType.fs" />
     <Compile Include ="Program.fs" />
     
     
   </ItemGroup>
+  
+  <ItemGroup>
+    <!-- Include Java source so MSBuild knows about it -->
+    <None Include="java\LinkedList.java" />
+  </ItemGroup>
+
+  <!-- Compile Java before F# build -->
+  <Target Name="CompileJava" BeforeTargets="Build">
+    <!-- Ensure output directory exists -->
+    <MakeDir Directories="java\bin" />
+    <!-- Invoke javac on the LinkedList.java -->
+    <Exec Command="javac java\LinkedList.java -d java\bin" />
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
