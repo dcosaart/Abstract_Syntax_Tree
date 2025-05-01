@@ -32,34 +32,38 @@ module WebApp =
         </body>
         </html>""" content
 
-    let indexPage =
+
+    let mutable latestResult = ""
+    let indexPage () =
         let form =
             "<h1>Enter MicroML function</h1>" +
-            "<form method=\"post\" action=\"/print\">" +
+            "<form method=\"post\" action=\"/\">" +
             "<textarea name=\"code\"></textarea><br/>" +
             "<button type=\"submit\">Parse</button>" +
-            "</form>"
+            "</form>" + $"<p>{latestResult}</p>"
         layout form
 
     
 
     let app =
         choose [
-            GET  >=> path "/"      >=> OK indexPage
+            GET  >=> path "/"      >=> OK (indexPage ())
 
-            POST >=> path "/print" >=> request (fun req ->
+            POST >=> request (fun req ->
                 match req.formData "code" with
                 | Choice1Of2 codeStr ->
                     try
                         let expr : Absyn.expr = fromString codeStr
                         let resultStr = print expr
-                        printfn "Parsed expression: %s" resultStr
-                        OK (sprintf "<pre>%s</pre>" resultStr)
+                        
+                        latestResult <- ("Result: " + resultStr)  // Store for display on index
+                        OK (indexPage ())  // Redirect to index page
                     with ex ->
                         BAD_REQUEST (sprintf "Parsing error: %s" ex.Message)
                 | Choice2Of2 err ->
                     BAD_REQUEST (sprintf "Form error: %s" err)
             )
+            NOT_FOUND "Not Found"
     
         ]
 
