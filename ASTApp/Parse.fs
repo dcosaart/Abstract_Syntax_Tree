@@ -1,6 +1,5 @@
 (* Lexing and parsing of micro-ML programs using fslex and fsyacc *)
-
-module Parse
+module Parsing
 
 open System
 open System.IO

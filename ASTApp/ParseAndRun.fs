@@ -2,7 +2,7 @@ module ParseAndRun.fs
 
 open System
 open Fun
-let fromString = Parse.fromString
+let fromString = Parsing.fromString
 //2
 let res3 = run(fromString "let pow x = if x = 0 then 1 else 3 * pow (x-1) in pow 8 end")
 //1

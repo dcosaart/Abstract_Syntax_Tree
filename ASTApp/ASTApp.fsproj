@@ -28,6 +28,7 @@
     <Compile Include = "ParseAndRunHigher.fs" />
     <Compile Include = "TypeInference.fs" />
     <Compile Include = "ParseAndType.fs" />
+    <Compile Include = "Ast.fs" />
     <Compile Include ="Program.fs" />
     
     

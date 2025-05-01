@@ -114,4 +114,26 @@ let ex5 =
                           Call(Var "fib", Prim("-", Var "n", CstI 1)),
                           Call(Var "fib", Prim("-", Var "n", CstI 2))),
                      CstI 1), Call(Var "fib", CstI 25)));;
+
+
+// add print function to print the expression with brackets
+let rec print (e: expr) : string =
+    match e with
+    | CstI i -> sprintf "[CstI \"%d\"]" i
+    | CstB b -> sprintf "[CstB \"%b\"]" b
+    | Var x -> sprintf "[Var %s]" x
+    | Prim(op, e1, e2) ->
+        let s1 = print e1
+        let s2 = print e2
+        sprintf "[Prim \"%s\" %s %s]" op s1 s2
+    | Let(x, eRhs, eBody) ->
+        let rhsStr = print eRhs
+        let bodyStr = print eBody
+        sprintf "[Let %s %s %s]" x rhsStr bodyStr
+    | If(e1, e2, e3) ->
+        sprintf "[If %s %s %s]" (print e1) (print e2) (print e3)
+    | Letfun(f, x, fBody, letBody) ->
+        sprintf "[Letfun %s %s %s %s]" f x (print fBody) (print letBody)
+    | Call(eFun, eArg) ->
+        sprintf "[Call %s %s]" (print eFun) (print eArg)
                      

@@ -2,7 +2,7 @@
 
 module ParseAndType
 
-let fromString = Parse.fromString;;
+let fromString = Parsing.fromString;;
 
 let inferType = TypeInference.inferType;;
     
