@@ -33,18 +33,20 @@ module WebApp =
         </html>""" content
 
 
-    let mutable latestResult = ""
+    let mutable result = ""
+    let mutable bracketNotation = ""
     let indexPage () =
         let form =
             "<h1>Enter MicroML function</h1>" +
             "<form method=\"post\" action=\"/\">" +
             "<textarea name=\"code\"></textarea><br/>" +
             "<button type=\"submit\">Parse</button>" +
-            "</form>" + $"<p>{latestResult}</p>"
+            "</form>" + $"<p>{bracketNotation}</p>" +
+            $"<p>{result}</p>"
         layout form
 
     
-
+    
     let app =
         choose [
             GET  >=> path "/"      >=> OK (indexPage ())
@@ -54,9 +56,11 @@ module WebApp =
                 | Choice1Of2 codeStr ->
                     try
                         let expr : Absyn.expr = fromString codeStr
-                        let resultStr = print expr
+                        let brackNot = print expr
+                        let res = run(expr)
                         
-                        latestResult <- ("Result: " + resultStr)  // Store for display on index
+                        bracketNotation <- ("Bracket Notation: " + brackNot)  // Store for display on index
+                        result <- ($"Result: {res}")
                         OK (indexPage ())  // Redirect to index page
                     with ex ->
                         BAD_REQUEST (sprintf "Parsing error: %s" ex.Message)
