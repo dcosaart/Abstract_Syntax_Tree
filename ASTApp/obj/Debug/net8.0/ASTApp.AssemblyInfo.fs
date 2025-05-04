@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("ASTApp")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee8150b77d72811cf93ffe4bde8a2e61385ac1e8")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b98110328f786519682d0f3d68489c81603bcd35")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("ASTApp")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("ASTApp")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]

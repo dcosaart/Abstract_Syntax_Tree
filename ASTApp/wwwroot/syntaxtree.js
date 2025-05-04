@@ -95,6 +95,9 @@ function update() {
 
     const syntax_tree = Parser.parse(tokens);
     tree.draw(syntax_tree);
+    if (typeof syntaxTreeData !== 'undefined') {
+      tree.draw(syntaxTreeData);
+    }
   } catch (err) {
     e('parse-error').innerHTML = err;
   }

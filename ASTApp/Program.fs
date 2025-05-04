@@ -6,7 +6,9 @@ open Suave.Filters
 open Suave.Operators
 open Suave.Successful
 open Suave.RequestErrors
+open Suave.Files
 open Suave.Utils
+open System.Text.Json
 
 
 open Parsing
@@ -28,6 +30,7 @@ module WebApp =
             </style>
         </head>
         <body>
+            <script src=\"/syntaxtree.js\"></script>
             %s
         </body>
         </html>""" content
@@ -36,21 +39,28 @@ module WebApp =
     let mutable result = ""
     let mutable bracketNotation = ""
     let indexPage () =
+        let jsonData = JsonSerializer.Serialize(bracketNotation)
+        let inlineScript =
+            sprintf "<script>const syntaxTreeData = %s;</script>" jsonData
         let form =
             "<h1>Enter MicroML function</h1>" +
             "<form method=\"post\" action=\"/\">" +
-            "<textarea name=\"code\"></textarea><br/>" +
+            "<textarea id=\"code\" name =\"code\"></textarea><br/>" +
+            "<div><span id=\"parse-error\"></span></div>" +
             "<button type=\"submit\">Parse</button>" +
-            "</form>" + $"<p>{bracketNotation}</p>" +
-            $"<p>{result}</p>"
+            "</form>" + $"<p>{result}</p>" +
+            $"<p>{bracketNotation}</p>" +
+            inlineScript +
+            "<div id=\"tree\"><canvas id=\"canvas\" width=\"100\" height=\"100\"></canvas></div>"
+            
         layout form
 
     
-    
+    // TODO: use the js syntax tree code to display the AST tree into the webpage, you can delete the result and bracket notation output
     let app =
         choose [
+            GET >=> path "/syntaxtree.js" >=> browseFileHome "syntaxtree.js"
             GET  >=> path "/"      >=> OK (indexPage ())
-
             POST >=> request (fun req ->
                 match req.formData "code" with
                 | Choice1Of2 codeStr ->
@@ -59,7 +69,7 @@ module WebApp =
                         let brackNot = print expr
                         let res = run(expr)
                         
-                        bracketNotation <- ("Bracket Notation: " + brackNot)  // Store for display on index
+                        bracketNotation <- brackNot  // Store for display on index
                         result <- ($"Result: {res}")
                         OK (indexPage ())  // Redirect to index page
                     with ex ->
@@ -75,6 +85,7 @@ module WebApp =
 let main _ =
     let port = 8080
     printfn "Starting server on http://localhost:%d" port
-    startWebServer { defaultConfig with homeFolder = None; bindings = [ HttpBinding.createSimple HTTP "0.0.0.0" port ] } WebApp.app
+    printfn "Browse home directory: %A" browseHome
+    startWebServer { defaultConfig with homeFolder = Some "wwwroot"; bindings = [ HttpBinding.createSimple HTTP "0.0.0.0" port ] } WebApp.app
     0
 
