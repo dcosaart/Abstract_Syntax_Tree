@@ -22,14 +22,14 @@
     <Compile Include="FunLex.fs" />
 
     <Compile Include="Parse.fs" />
-    <Compile Include = "Fun.fs" />
+    <Compile Include="Fun.fs" />
     <Compile Include="ParseAndRun.fs" />
-    <Compile Include = "HigherFun.fs" />
-    <Compile Include = "ParseAndRunHigher.fs" />
-    <Compile Include = "TypeInference.fs" />
-    <Compile Include = "ParseAndType.fs" />
-    <Compile Include = "Ast.fs" />
-    <Compile Include ="Program.fs" />
+    <Compile Include="HigherFun.fs" />
+    <Compile Include="ParseAndRunHigher.fs" />
+    <Compile Include="TypeInference.fs" />
+    <Compile Include="ParseAndType.fs" />
+    <Compile Include="Ast.fs" />
+    <Compile Include="Program.fs" />
     
     
   </ItemGroup>
@@ -48,6 +48,7 @@
   </Target>
 
   <ItemGroup>
+    <PackageReference Include="Jint" Version="4.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Suave" Version="2.6.2" />
     <PackageReference Include="FsLexYacc" Version="11.3.0" />

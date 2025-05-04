@@ -52,6 +52,11 @@
               "version": "[11.3.0, )",
               "generatePathProperty": true
             },
+            "Jint": {
+              "target": "Package",
+              "version": "[4.2.2, )",
+              "generatePathProperty": true
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )",

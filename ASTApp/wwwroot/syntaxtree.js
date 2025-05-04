@@ -95,11 +95,26 @@ function update() {
 
     const syntax_tree = Parser.parse(tokens);
     tree.draw(syntax_tree);
-    if (typeof syntaxTreeData !== 'undefined') {
-      tree.draw(syntaxTreeData);
-    }
   } catch (err) {
     e('parse-error').innerHTML = err;
+  }
+}
+
+export async function fetchTreeHtml(codeString){
+  e('parse-error').innerHTML = '';
+
+  try {
+    const tokens = Tokenizer.tokenize(codeString);
+    validateTokens(tokens);
+
+    const syntax_tree = Parser.parse(tokens);
+    tree.draw(syntax_tree);
+
+    const html = e('tree').innerHTML;
+
+    return html;
+  } catch (err) {
+    return "Error in tree parsing"
   }
 }
 

@@ -1,6 +1,7 @@
 ﻿(* File Fun/ParseAndRun.fs *)
 
 open System
+open System.IO
 open Suave
 open Suave.Filters
 open Suave.Operators
@@ -9,6 +10,7 @@ open Suave.RequestErrors
 open Suave.Files
 open Suave.Utils
 open System.Text.Json
+open Jint
 
 
 open Parsing
@@ -23,6 +25,8 @@ module WebApp =
             <meta charset=\"UTF-8\"> 
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
             <title>JS AST Parser</title>
+            <link rel=\"stylesheet\" type=\"text/css\" href=\"/default.css\" />
+            <script src=\"/syntaxtree.js\ async"></script>
             <style>
             body { font-family: sans-serif; margin: 2em; }
             textarea { width: 100%%; height: 200px; }
@@ -30,7 +34,6 @@ module WebApp =
             </style>
         </head>
         <body>
-            <script src=\"/syntaxtree.js\"></script>
             %s
         </body>
         </html>""" content
@@ -38,6 +41,8 @@ module WebApp =
 
     let mutable result = ""
     let mutable bracketNotation = ""
+
+    let mutable AST = ""
     let indexPage () =
         let jsonData = JsonSerializer.Serialize(bracketNotation)
         let inlineScript =
@@ -51,7 +56,7 @@ module WebApp =
             "</form>" + $"<p>{result}</p>" +
             $"<p>{bracketNotation}</p>" +
             inlineScript +
-            "<div id=\"tree\"><canvas id=\"canvas\" width=\"100\" height=\"100\"></canvas></div>"
+            $"<div id=\"tree\">{AST}</div>"
             
         layout form
 
@@ -59,7 +64,15 @@ module WebApp =
     // TODO: use the js syntax tree code to display the AST tree into the webpage, you can delete the result and bracket notation output
     let app =
         choose [
+            //GET >=> browseHome
+            GET >=> path "/default.css" >=> browseFileHome "default.css"
+            GET >=> path "/index.html" >=> browseFileHome "index.html"
             GET >=> path "/syntaxtree.js" >=> browseFileHome "syntaxtree.js"
+            GET >=> path "/tree.js"       >=> browseFileHome "tree.js"
+            GET >=> path "/tip.js"        >=> browseFileHome "tip.js"
+            GET >=> path "/parser.js"     >=> browseFileHome "parser.js"
+            GET >=> path "/tokenizer.js"  >=> browseFileHome "tokenizer.js"
+            GET >=> path "/canvas.js"  >=> browseFileHome "canvas.js"
             GET  >=> path "/"      >=> OK (indexPage ())
             POST >=> request (fun req ->
                 match req.formData "code" with
@@ -68,9 +81,21 @@ module WebApp =
                         let expr : Absyn.expr = fromString codeStr
                         let brackNot = print expr
                         let res = run(expr)
-                        
+                        let jsCode = File.ReadAllText(Path.Combine(__SOURCE_DIRECTORY__, "wwwroot", "syntaxtree.js"))
+  
+                        // Create a single Jint Engine instance and load the module code
+                        let mutable engine =
+                            new Engine()
+                        engine <- engine.SetValue("console", {| log = fun (s: obj) -> () |}).Execute(jsCode)        
+                            
+                        let renderTreeHtml (brackNot: string) : string =
+                            engine.Invoke("renderTreeHtml", brackNot).AsString()
+
+                        let treeHtml = renderTreeHtml brackNot
+
                         bracketNotation <- brackNot  // Store for display on index
-                        result <- ($"Result: {res}")
+                        result <- $"Result: {res}"
+                        AST <- treeHtml
                         OK (indexPage ())  // Redirect to index page
                     with ex ->
                         BAD_REQUEST (sprintf "Parsing error: %s" ex.Message)

@@ -3,8 +3,10 @@ C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\ASTApp.runtimeconfig.json
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\ASTApp.dll
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\ASTApp.pdb
+C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\Acornima.dll
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\FSharp.Core.dll
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\FsLexYacc.Runtime.dll
+C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\Jint.dll
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\Suave.dll
 C:\Users\Dylan\source\repos\Prog Lang Concepts\Repos\Abstract_Syntax_Tree\ASTApp\bin\Debug\net8.0\cs\FSharp.Core.resources.dll

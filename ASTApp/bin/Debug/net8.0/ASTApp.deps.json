@@ -10,11 +10,20 @@
         "dependencies": {
           "FSharp.Core": "8.0.200",
           "FsLexYacc": "11.3.0",
+          "Jint": "4.2.2",
           "Newtonsoft.Json": "13.0.3",
           "Suave": "2.6.2"
         },
         "runtime": {
           "ASTApp.dll": {}
+        }
+      },
+      "Acornima/1.1.1": {
+        "runtime": {
+          "lib/net8.0/Acornima.dll": {
+            "assemblyVersion": "1.1.1.0",
+            "fileVersion": "1.1.1.0"
+          }
         }
       },
       "FSharp.Core/8.0.200": {
@@ -83,6 +92,17 @@
           }
         }
       },
+      "Jint/4.2.2": {
+        "dependencies": {
+          "Acornima": "1.1.1"
+        },
+        "runtime": {
+          "lib/net8.0/Jint.dll": {
+            "assemblyVersion": "4.2.2.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -110,6 +130,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Acornima/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+ul3wnGmz+e845O8pKzA4NVuRiYvPXlVn+5vgQTN7zmBi/VAgV6aAyBtjBkv1tLKUUFCZS6cPJtRPLOQ1D9XHw==",
+      "path": "acornima/1.1.1",
+      "hashPath": "acornima.1.1.1.nupkg.sha512"
+    },
     "FSharp.Core/8.0.200": {
       "type": "package",
       "serviceable": true,
@@ -130,6 +157,13 @@
       "sha512": "sha512-36b+4G+85WXU3kmbtq9hFSMGCLkn1nLzJoPgNaLUusnjXrC5ndAyS+hl13H6frpLCS3DB1wAmx/1SGYDe0avMw==",
       "path": "fslexyacc.runtime/11.3.0",
       "hashPath": "fslexyacc.runtime.11.3.0.nupkg.sha512"
+    },
+    "Jint/4.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8TaFaWVtzEVrRq0HsWu/NbOBU0SESnuF/GlbuCNkbys+mv4q3g7TKv3Eugd0cwk+B624KX44GnUDGMQkdWpwgA==",
+      "path": "jint/4.2.2",
+      "hashPath": "jint.4.2.2.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",

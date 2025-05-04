@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "Vfj0ZQz8V+nzQRIiunuj3T1ANFc3EBPdeD7H489+dFwxntPVQYN14mNJcxX1Kqu7Td/TeOYuzDN+6qiuhypKVg==",
+  "dgSpecHash": "bChXT6vXRVBQwBWa5ocX5qstBmxvQM50vYZeWW7FGi9SLkOuAwhHP6K7Oe5mu2GRuD0BNywZ3qKCHd71u2l6Aw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Dylan\\source\\repos\\Prog Lang Concepts\\Repos\\Abstract_Syntax_Tree\\ASTApp\\ASTApp.fsproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dylan\\.nuget\\packages\\acornima\\1.1.1\\acornima.1.1.1.nupkg.sha512",
     "C:\\Users\\Dylan\\.nuget\\packages\\fsharp.core\\8.0.200\\fsharp.core.8.0.200.nupkg.sha512",
     "C:\\Users\\Dylan\\.nuget\\packages\\fslexyacc\\11.3.0\\fslexyacc.11.3.0.nupkg.sha512",
     "C:\\Users\\Dylan\\.nuget\\packages\\fslexyacc.runtime\\11.3.0\\fslexyacc.runtime.11.3.0.nupkg.sha512",
+    "C:\\Users\\Dylan\\.nuget\\packages\\jint\\4.2.2\\jint.4.2.2.nupkg.sha512",
     "C:\\Users\\Dylan\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Dylan\\.nuget\\packages\\suave\\2.6.2\\suave.2.6.2.nupkg.sha512"
   ],

@@ -16,6 +16,7 @@
     <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\Dylan\.nuget\packages\fsharp.core\8.0.200</PkgFSharp_Core>
     <PkgSuave Condition=" '$(PkgSuave)' == '' ">C:\Users\Dylan\.nuget\packages\suave\2.6.2</PkgSuave>
     <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\Dylan\.nuget\packages\newtonsoft.json\13.0.3</PkgNewtonsoft_Json>
+    <PkgJint Condition=" '$(PkgJint)' == '' ">C:\Users\Dylan\.nuget\packages\jint\4.2.2</PkgJint>
     <PkgFsLexYacc Condition=" '$(PkgFsLexYacc)' == '' ">C:\Users\Dylan\.nuget\packages\fslexyacc\11.3.0</PkgFsLexYacc>
   </PropertyGroup>
 </Project>

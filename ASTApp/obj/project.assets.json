@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "Acornima/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Acornima.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Acornima.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "FSharp.Core/8.0.200": {
         "type": "package",
         "compile": {
@@ -82,6 +95,22 @@
           }
         }
       },
+      "Jint/4.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Acornima": "1.1.1"
+        },
+        "compile": {
+          "lib/net8.0/Jint.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Jint.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -114,6 +143,28 @@
     }
   },
   "libraries": {
+    "Acornima/1.1.1": {
+      "sha512": "+ul3wnGmz+e845O8pKzA4NVuRiYvPXlVn+5vgQTN7zmBi/VAgV6aAyBtjBkv1tLKUUFCZS6cPJtRPLOQ1D9XHw==",
+      "type": "package",
+      "path": "acornima/1.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "acornima.1.1.1.nupkg.sha512",
+        "acornima.nuspec",
+        "lib/net462/Acornima.dll",
+        "lib/net462/Acornima.xml",
+        "lib/net6.0/Acornima.dll",
+        "lib/net6.0/Acornima.xml",
+        "lib/net8.0/Acornima.dll",
+        "lib/net8.0/Acornima.xml",
+        "lib/netstandard2.0/Acornima.dll",
+        "lib/netstandard2.0/Acornima.xml",
+        "lib/netstandard2.1/Acornima.dll",
+        "lib/netstandard2.1/Acornima.xml"
+      ]
+    },
     "FSharp.Core/8.0.200": {
       "sha512": "U016Y0NhtIEQvbmxf6Sff9lx7PTSGEFctA/kLrJr9MvNfKwjrzlK/4C2V1StgsapegWeGYW6K8Zd/D6vc9C4Yw==",
       "type": "package",
@@ -260,6 +311,26 @@
         "logo.png"
       ]
     },
+    "Jint/4.2.2": {
+      "sha512": "8TaFaWVtzEVrRq0HsWu/NbOBU0SESnuF/GlbuCNkbys+mv4q3g7TKv3Eugd0cwk+B624KX44GnUDGMQkdWpwgA==",
+      "type": "package",
+      "path": "jint/4.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "jint.4.2.2.nupkg.sha512",
+        "jint.nuspec",
+        "lib/net462/Jint.dll",
+        "lib/net462/Jint.xml",
+        "lib/net8.0/Jint.dll",
+        "lib/net8.0/Jint.xml",
+        "lib/netstandard2.0/Jint.dll",
+        "lib/netstandard2.0/Jint.xml",
+        "lib/netstandard2.1/Jint.dll",
+        "lib/netstandard2.1/Jint.xml"
+      ]
+    },
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -309,6 +380,7 @@
     "net8.0": [
       "FSharp.Core >= 8.0.200",
       "FsLexYacc >= 11.3.0",
+      "Jint >= 4.2.2",
       "Newtonsoft.Json >= 13.0.3",
       "Suave >= 2.6.2"
     ]
@@ -362,6 +434,11 @@
           "FsLexYacc": {
             "target": "Package",
             "version": "[11.3.0, )",
+            "generatePathProperty": true
+          },
+          "Jint": {
+            "target": "Package",
+            "version": "[4.2.2, )",
             "generatePathProperty": true
           },
           "Newtonsoft.Json": {
