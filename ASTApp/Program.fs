@@ -81,15 +81,19 @@ module WebApp =
                         let expr : Absyn.expr = fromString codeStr
                         let brackNot = print expr
                         let res = run(expr)
-                        let jsCode = File.ReadAllText(Path.Combine(__SOURCE_DIRECTORY__, "wwwroot", "syntaxtree.js"))
+                        let jsCode = File.ReadAllText(Path.Combine(__SOURCE_DIRECTORY__, "wwwroot", "syntaxtree.bundle.js"))
   
                         // Create a single Jint Engine instance and load the module code
                         let mutable engine =
-                            new Engine()
-                        engine <- engine.SetValue("console", {| log = fun (s: obj) -> () |}).Execute(jsCode)        
-                            
-                        let renderTreeHtml (brackNot: string) : string =
-                            engine.Invoke("renderTreeHtml", brackNot).AsString()
+                            (new Engine())
+                                .SetValue("console", {| log = fun (s: obj) -> () |})
+                                .Execute(jsCode)
+                                .Execute "this.fetchTreeHtml = syntaxtree.fetchTreeHtml;"
+
+                        
+                        printfn "%s" jsCode
+                        let renderTreeHtml (brackNot: string) : string = 
+                            engine.Invoke("fetchTreeHtml", brackNot).AsString()
 
                         let treeHtml = renderTreeHtml brackNot
 

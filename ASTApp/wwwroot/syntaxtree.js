@@ -13,21 +13,6 @@ import * as Tokenizer from './tokenizer.js';
 
 const tree = new Tree();
 
-window.onload = () => {
-  registerServiceWorker();
-
-  e('version').innerHTML = VERSION;
-  tree.setCanvas(e('canvas'));
-  registerCallbacks();
-
-  const query = decodeURI(window.location.search).replace('?', '');
-  if (query != null && query.length > 2) e('code').value = query;
-
-  update();
-
-  rotateTip();
-  setInterval(rotateTip, 30 * 1000);
-};
 
 function e(id) {
   return document.getElementById(id);
@@ -100,8 +85,7 @@ function update() {
   }
 }
 
-export async function fetchTreeHtml(codeString){
-  e('parse-error').innerHTML = '';
+export function fetchTreeHtml(codeString){
 
   try {
     const tokens = Tokenizer.tokenize(codeString);
@@ -114,9 +98,11 @@ export async function fetchTreeHtml(codeString){
 
     return html;
   } catch (err) {
-    return "Error in tree parsing"
+    return "Parsing Error"
   }
 }
+
+
 
 function validateTokens(tokens) {
   if (tokens.length < 3) throw 'Phrase too short';
