@@ -69,6 +69,7 @@ module BracketAst
         let css = """
         <style>
         #ast {
+            text-aling: center;
             font-family: sans-serif;
             line-height: 1.4;
         }
