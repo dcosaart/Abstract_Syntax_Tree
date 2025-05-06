@@ -85,20 +85,21 @@ function update() {
   }
 }
 
-export function fetchTreeHtml(codeString){
-
+export function fetchTreeHtml(canvas, codeString){
   try {
+    tree.setCanvas(canvas);
     const tokens = Tokenizer.tokenize(codeString);
     validateTokens(tokens);
 
     const syntax_tree = Parser.parse(tokens);
     tree.draw(syntax_tree);
 
-    const html = e('tree').innerHTML;
+    const canvasHTML = `<canvas width="${canvas.width}" height="${canvas.height}"></canvas>`;
 
-    return html;
+    // Wrap the canvas HTML in a div with id="tree"
+    return `<div id="tree">${canvasHTML}</div>`;
   } catch (err) {
-    return "Parsing Error"
+    return `Error: ${err}`;
   }
 }
 

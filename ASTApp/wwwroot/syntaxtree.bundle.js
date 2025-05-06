@@ -43,7 +43,7 @@ var syntaxtree = (() => {
     }
     clear() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.context.setTransform(1, 0, 0, 1, 0, 0);
+      console.log();
       this.context.textAlign = "center";
       this.context.textBaseline = "top";
     }
@@ -443,8 +443,8 @@ var syntaxtree = (() => {
     setCanvas(c) {
       this.canvas = new Canvas(c);
     }
-    setColor(e2) {
-      this.nodecolor = e2;
+    setColor(e) {
+      this.nodecolor = e;
     }
     setFont(f) {
       this.canvas.setFont(f);
@@ -705,20 +705,17 @@ var syntaxtree = (() => {
 
   // ASTApp/wwwroot/syntaxtree.js
   var tree = new Tree();
-  function e(id) {
-    return document.getElementById(id);
-  }
-  function fetchTreeHtml(codeString) {
-    e("parse-error").innerHTML = "";
+  function fetchTreeHtml(canvas2, codeString) {
     try {
+      tree.setCanvas(canvas2);
       const tokens = tokenize(codeString);
       validateTokens(tokens);
       const syntax_tree = parse(tokens);
       tree.draw(syntax_tree);
-      const html = e("tree").innerHTML;
-      return html;
+      const canvasHTML = `<canvas width="${canvas2.width}" height="${canvas2.height}"></canvas>`;
+      return `<div id="tree">${canvasHTML}</div>`;
     } catch (err) {
-      return "Parsing Error";
+      return `Error: ${err}`;
     }
   }
   function validateTokens(tokens) {

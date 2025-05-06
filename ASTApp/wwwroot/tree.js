@@ -38,10 +38,11 @@ export default class Tree {
       calculateAutoSubscript(drawables);
     const has_arrow =
         calculateDrawablePositions(this.canvas, drawables, this.vscaler);
+    
     const arrowSet = makeArrowSet(drawables, this.fontsize);
     const arrowScaler =
         Math.pow((Math.sqrt(arrowSet.maxBottom) / arrowSet.maxBottom), 1 / 50);
-
+    
     this.resizeCanvas(
         drawables.width + 1,
         Math.max((max_depth + 1) * (this.fontsize * this.vscaler * 3),

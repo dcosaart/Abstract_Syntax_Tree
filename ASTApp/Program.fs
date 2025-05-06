@@ -11,6 +11,8 @@ open Suave.Files
 open Suave.Utils
 open System.Text.Json
 open Jint
+open Jint.Native
+open Jint.Native.Function
 
 
 open Parsing
@@ -73,8 +75,9 @@ module WebApp =
             GET >=> path "/parser.js"     >=> browseFileHome "parser.js"
             GET >=> path "/tokenizer.js"  >=> browseFileHome "tokenizer.js"
             GET >=> path "/canvas.js"  >=> browseFileHome "canvas.js"
+            GET >=> path "/syntaxtree.bundle.js" >=> browseFileHome "syntaxtree.bundle.js"
             GET  >=> path "/"      >=> OK (indexPage ())
-            POST >=> request (fun req ->
+            POST >=> path "/" >=> request (fun req ->
                 match req.formData "code" with
                 | Choice1Of2 codeStr ->
                     try
@@ -84,16 +87,61 @@ module WebApp =
                         let jsCode = File.ReadAllText(Path.Combine(__SOURCE_DIRECTORY__, "wwwroot", "syntaxtree.bundle.js"))
   
                         // Create a single Jint Engine instance and load the module code
-                        let mutable engine =
+                        let engine =
                             (new Engine())
                                 .SetValue("console", {| log = fun (s: obj) -> () |})
                                 .Execute(jsCode)
-                                .Execute "this.fetchTreeHtml = syntaxtree.fetchTreeHtml;"
+
 
                         
-                        printfn "%s" jsCode
+                        
                         let renderTreeHtml (brackNot: string) : string = 
-                            engine.Invoke("fetchTreeHtml", brackNot).AsString()
+                            let moduleObj = engine.GetValue("syntaxtree").AsObject()
+                            let fetchFn  = moduleObj.Get("fetchTreeHtml")
+                            let canvasStub =
+                                engine.Evaluate("""
+                                ({
+                                    width: 400,
+                                    height: 300,
+                                    toDataURL: () => "",
+                                    getContext: function() {
+                                        // ignore the argument, just return our fake 2D context
+                                        const ctx = {
+                                        font: "",
+                                        measureText: t => ({ width: t.length * 8 }),
+                                        fillText: () => {},
+                                        clearRect: () => {},
+                                        setTransform: () => {},
+                                        translate: () => {},
+                                        fillStyle: "",
+                                        strokeStyle: "",
+                                        lineWidth: 1,
+                                        set fillStyle(v)   { this.fillStyle = v; },
+                                        set strokeStyle(v) { this.strokeStyle = v; },
+                                        set lineWidth(v)   { this.lineWidth = v; },
+                                        beginPath:   () => {},
+                                        moveTo:      () => {},
+                                        lineTo:      () => {},
+                                        rect:        () => {},
+                                        bezierCurveTo: () => {},
+                                        stroke:      () => {},
+                                        fill:        () => {},
+                                        textAlign:    "center",
+                                        textBaseline: "top",
+                                        set textAlign(v)    { this.textAlign = v; },
+                                        set textBaseline(v) { this.textBaseline = v; }
+                                        };
+                                        return ctx;
+                                    }
+                                })
+                                """).ToObject()
+                            fetchFn.Call(
+                                moduleObj, // thisArg (like "this" in JS)
+                                [| 
+                                JsValue.FromObject(engine, canvasStub); 
+                                JsValue.FromObject(engine, brackNot) 
+                                |]
+                            ).AsString()
 
                         let treeHtml = renderTreeHtml brackNot
 
