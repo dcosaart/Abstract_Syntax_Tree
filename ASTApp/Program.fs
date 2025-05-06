@@ -50,6 +50,56 @@ module WebApp =
         let inlineScript =
             sprintf "<script>const syntaxTreeData = %s;</script>" jsonData
         let form =
+            "<style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 2em;
+                    background-color: #f9f9f9;
+                }
+                h1 {
+                    color: #333;
+                }
+                form {
+                    margin-top: 1em;
+                    margin-bottom: 2em;
+                }
+                textarea {
+                    width: 100%;
+                    height: 150px;
+                    font-family: monospace;
+                    font-size: 1em;
+                    padding: 0.5em;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                    background-color: #fff;
+                }
+                button {
+                    padding: 0.5em 1em;
+                    font-size: 1em;
+                    border: none;
+                    background-color: #4CAF50;
+                    color: white;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                button:hover {
+                    background-color: #45a049;
+                }
+                #parse-error {
+                    color: red;
+                    font-weight: bold;
+                }
+                #tree {
+                    margin-top: 2em;
+                    padding: 1em;
+                    background-color: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    white-space: pre-wrap;
+                    font-family: monospace;
+                }
+                </style>" +
             "<h1>Enter MicroML function</h1>" +
             "<form method=\"post\" action=\"/\">" +
             "<textarea id=\"code\" name =\"code\"></textarea><br/>" +
@@ -84,6 +134,7 @@ module WebApp =
                         let expr : Absyn.expr = fromString codeStr
                         let brackNot = print expr
                         let res = run(expr)
+                        (*
                         let jsCode = File.ReadAllText(Path.Combine(__SOURCE_DIRECTORY__, "wwwroot", "syntaxtree.bundle.js"))
   
                         // Create a single Jint Engine instance and load the module code
@@ -144,7 +195,9 @@ module WebApp =
                             ).AsString()
 
                         let treeHtml = renderTreeHtml brackNot
+                        *)
 
+                        let treeHtml = BracketAst.astToDiv brackNot 
                         bracketNotation <- brackNot  // Store for display on index
                         result <- $"Result: {res}"
                         AST <- treeHtml
